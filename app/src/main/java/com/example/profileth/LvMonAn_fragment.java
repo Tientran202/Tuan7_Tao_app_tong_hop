@@ -1,0 +1,102 @@
+package com.example.profileth;
+        import android.content.DialogInterface;
+        import android.os.Bundle;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.AdapterView;
+        import android.widget.Button;
+        import android.widget.ListView;
+        import android.widget.Toast;
+
+        import androidx.annotation.NonNull;
+        import androidx.annotation.Nullable;
+        import androidx.appcompat.app.AlertDialog;
+        import androidx.fragment.app.Fragment;
+
+        import java.util.ArrayList;
+
+public class LvMonAn_fragment extends Fragment {
+    ListView lvMonAn ;
+    int vitrixoa=-1;
+    ArrayList<Monan> arrayMonAn;
+    MonAnAdapter adapter;
+    Button btnXoa;
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
+        View view = inflater.inflate(R.layout.layout_lvmonan_fragment,container,false);
+        lvMonAn = (ListView) view.findViewById(R.id.lv_monAn);
+        btnXoa = (Button) view.findViewById(R.id.btnXoa);
+
+        //xoa su kien
+        btnXoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(vitrixoa==-1){
+                    Toast.makeText(view.getContext(), "Giữ chọn món ăn muốn xóa trước khi xóa", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(view.getContext(), "Đã xóa món "+arrayMonAn.get(vitrixoa).getTen(), Toast.LENGTH_SHORT).show();
+                    arrayMonAn.remove(vitrixoa);
+                    adapter.notifyDataSetChanged();
+                    vitrixoa=-1;
+                }
+
+            }
+        });
+
+        //click lv de xoa
+        lvMonAn.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                vitrixoa = i;
+                Toast.makeText(view.getContext(), "Nhấn xóa để xóa món "+arrayMonAn.get(i).getTen(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
+        arrayMonAn= new ArrayList<>();
+        arrayMonAn.add(new Monan("Bún đậu mắm tôm","30k",R.drawable.bundau));
+        arrayMonAn.add(new Monan("Bún thịt nướng","30k",R.drawable.bunthichnuong));
+        arrayMonAn.add(new Monan("Chè","20k ",R.drawable.che));
+        arrayMonAn.add(new Monan("Lẩu nướng","50k",R.drawable.launuong));
+        arrayMonAn.add(new Monan("Lẩu thái","50k",R.drawable.lauthai));
+        arrayMonAn.add(new Monan("Mì cay","50k",R.drawable.micay));
+        arrayMonAn.add(new Monan("Phở","50k",R.drawable.pho));
+        arrayMonAn.add(new Monan("Tiết canh","20k",R.drawable.tietcanh));
+        adapter = new MonAnAdapter(getContext(), R.layout.dongmonan, arrayMonAn);
+        lvMonAn.setAdapter(adapter);
+        return view;
+
+    }
+
+    private void xacNhanXoa(int xoa){
+        AlertDialog.Builder alerdialog = new AlertDialog.Builder(getContext());
+        alerdialog.setTitle("Thông báo");
+        alerdialog.setTitle("Bạn muốn xóa "+arrayMonAn.get(xoa).getMota()+" không!!");
+        alerdialog.setPositiveButton("Xác nhận xóa", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getContext(), "Đã xóa món "+ arrayMonAn.get(xoa).getTen(), Toast.LENGTH_SHORT).show();
+                arrayMonAn.remove(xoa);
+                adapter.notifyDataSetChanged();
+
+            }
+        });
+        alerdialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        alerdialog.setIcon(R.mipmap.ic_launcher);
+        alerdialog.show();
+
+    }
+
+
+}
