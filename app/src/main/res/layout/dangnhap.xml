@@ -132,67 +132,58 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="710dp"
-        android:orientation="vertical">
+        android:layout_marginTop="700dp"
+        android:gravity="center"
+        android:orientation="vertical"
+
+        >
 
         <LinearLayout
-            android:layout_width="310dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@drawable/boderfb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/fb2">
-
-            </ImageView>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="Đăng nhâp bằng tài khoản Facebook"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold">
+                android:layout_height="wrap_content">
 
-            </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Hoặc đăng nhập bằng "
+                    android:textColor="@color/white"
+                    android:textSize="18sp">
 
-        </LinearLayout>
+                </TextView>
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="310dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/boderfb"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="37dp"
-                android:layout_height="37dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/gg">
-
-            </ImageView>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="Đăng nhâp bằng tài khoản Google"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold">
+                android:layout_height="wrap_content">
 
-            </TextView>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/fb2">
+
+
+                </ImageView>
+
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/gg">
+
+                </ImageView>
+            </LinearLayout>
+
 
         </LinearLayout>
 
