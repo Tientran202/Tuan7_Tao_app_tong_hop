@@ -21,7 +21,9 @@ public class Monan {
     public Monan(String ten) {
         this.ten = ten;
     }
+    public Monan(){
 
+    }
     public Monan(String ten, String mota, int anh) {
         this.ten = ten;
         this.mota = mota;

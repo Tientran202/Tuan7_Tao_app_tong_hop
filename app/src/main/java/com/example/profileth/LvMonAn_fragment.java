@@ -1,5 +1,6 @@
 package com.example.profileth;
         import android.content.DialogInterface;
+        import android.content.Intent;
         import android.os.Bundle;
         import android.view.LayoutInflater;
         import android.view.View;
@@ -14,6 +15,7 @@ package com.example.profileth;
         import androidx.appcompat.app.AlertDialog;
         import androidx.fragment.app.Fragment;
 
+        import java.io.Serializable;
         import java.util.ArrayList;
 
 public class LvMonAn_fragment extends Fragment {
@@ -30,6 +32,7 @@ public class LvMonAn_fragment extends Fragment {
         View view = inflater.inflate(R.layout.layout_lvmonan_fragment,container,false);
         lvMonAn = (ListView) view.findViewById(R.id.lv_monAn);
         btnXoa = (Button) view.findViewById(R.id.btnXoa);
+        Bundle bd = new Bundle();
 
         //xoa su kien
         btnXoa.setOnClickListener(new View.OnClickListener() {
@@ -40,22 +43,37 @@ public class LvMonAn_fragment extends Fragment {
                 }
                 else
                 {
-                    Toast.makeText(view.getContext(), "Đã xóa món "+arrayMonAn.get(vitrixoa).getTen(), Toast.LENGTH_SHORT).show();
-                    arrayMonAn.remove(vitrixoa);
-                    adapter.notifyDataSetChanged();
+                    xacNhanXoa(vitrixoa);
                     vitrixoa=-1;
                 }
 
             }
         });
 
-        //click lv de xoa
+        //long click lv de xoa
         lvMonAn.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 vitrixoa = i;
                 Toast.makeText(view.getContext(), "Nhấn xóa để xóa món "+arrayMonAn.get(i).getTen(), Toast.LENGTH_SHORT).show();
                 return true;
+            }
+        });
+
+        //click lv
+        lvMonAn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent it = new Intent(view.getContext(),ManHinhChiTiet.class);
+                Monan monan=  new Monan();
+
+                bd.putInt("anh",arrayMonAn.get(i).getAnh());
+                bd.putString("ten",arrayMonAn.get(i).getTen());
+                bd.putString("mota",arrayMonAn.get(i).getMota());
+
+
+                it.putExtra("dulieu",bd);
+                startActivity(it);
             }
         });
 
@@ -73,11 +91,11 @@ public class LvMonAn_fragment extends Fragment {
         return view;
 
     }
-
+    //ham xac nhan xoa
     private void xacNhanXoa(int xoa){
         AlertDialog.Builder alerdialog = new AlertDialog.Builder(getContext());
         alerdialog.setTitle("Thông báo");
-        alerdialog.setTitle("Bạn muốn xóa "+arrayMonAn.get(xoa).getMota()+" không!!");
+        alerdialog.setTitle("Bạn muốn xóa "+arrayMonAn.get(xoa).getTen()+" không!!");
         alerdialog.setPositiveButton("Xác nhận xóa", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -97,6 +115,7 @@ public class LvMonAn_fragment extends Fragment {
         alerdialog.show();
 
     }
+
 
 
 }
